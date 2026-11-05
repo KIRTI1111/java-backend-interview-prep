@@ -4,6 +4,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Test;
 
+import com.banking.api.dto.AccountResponse;
+
 public class AccountServiceTest {
 
     @Test
@@ -11,6 +13,16 @@ public class AccountServiceTest {
         AccountService service = new AccountService();
         String result = service.getAccountStatus();
         assertEquals("ACTIVE", result);
+    }
+
+    @Test 
+    void shouldReturnCorrectAccountDetails() {
+        AccountService service = new AccountService();
+        AccountResponse response = service.getAccountDetails();
+        assertEquals(101L, response.getAccountId());
+        assertEquals("Rahul", response.getAccountHolder());
+        assertEquals(25000.0, response.getBalance());
+        assertEquals("ACTIVE", response.getStatus());
     }
 
 }
