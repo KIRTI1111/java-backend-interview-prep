@@ -26,11 +26,24 @@ public class AccountControllerTest {
                             "accountHolder": "Priya",
                             "balance": 10000.0
                         }
-                        """)
-                    )
+                        """))
                 .andExpect(status().isOk())
                 .andExpect(content().string("Account received for Priya"));
-                        
+
+    }
+
+    @Test
+    void accountValidationTest() throws Exception {
+        mockMvc.perform(post("/api/accounts")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content("""
+                        {
+                            "accountHolder": "",
+                            "balance": -5000
+                        }
+                        """))
+                .andExpect(status().isBadRequest());
+
     }
 
 }

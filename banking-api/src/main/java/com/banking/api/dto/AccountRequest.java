@@ -1,8 +1,14 @@
 package com.banking.api.dto;
 
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Positive;
+
 public class AccountRequest {
 
+    @NotBlank(message = "Account holder name is required")
     private String accountHolder;
+
+    @Positive(message = "Initial balance must be positive")
     private double balance;
 
     public AccountRequest() {

@@ -10,6 +10,8 @@ import com.banking.api.dto.AccountRequest;
 import com.banking.api.dto.AccountResponse;
 import com.banking.api.service.AccountService;
 
+import jakarta.validation.Valid;
+
 @RestController
 @RequestMapping("/api/accounts")
 public class AccountController {
@@ -31,7 +33,7 @@ public class AccountController {
     }
 
     @PostMapping
-    public String createAccount(@RequestBody AccountRequest accountRequest) {
+    public String createAccount(@Valid @RequestBody AccountRequest accountRequest) {
         return "Account received for " + accountRequest.getAccountHolder();
     }
 }
