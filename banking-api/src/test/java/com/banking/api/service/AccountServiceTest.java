@@ -18,7 +18,7 @@ public class AccountServiceTest {
     @Test 
     void shouldReturnCorrectAccountDetails() {
         AccountService service = new AccountService();
-        AccountResponse response = service.getAccountDetails();
+        AccountResponse response = service.getAccountDetails(101L);
         assertEquals(101L, response.getAccountId());
         assertEquals("Rahul", response.getAccountHolder());
         assertEquals(25000.0, response.getBalance());

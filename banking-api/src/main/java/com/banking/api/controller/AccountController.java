@@ -1,6 +1,7 @@
 package com.banking.api.controller;
 
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,9 +28,9 @@ public class AccountController {
         return service.getAccountStatus();
     }
 
-    @GetMapping("/101")
-    public AccountResponse details() {
-        return service.getAccountDetails();
+    @GetMapping("/{accountId}")
+    public AccountResponse details(@PathVariable long accountId) {
+        return service.getAccountDetails(accountId);
     }
 
     @PostMapping
