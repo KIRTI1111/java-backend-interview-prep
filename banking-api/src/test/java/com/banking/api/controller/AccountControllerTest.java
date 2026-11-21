@@ -8,7 +8,6 @@ import org.springframework.boot.webmvc.test.autoconfigure.AutoConfigureMockMvc;
 import org.springframework.test.web.servlet.MockMvc;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 
@@ -29,9 +28,10 @@ public class AccountControllerTest {
                             "balance": 10000.0
                         }
                         """))
-                .andExpect(status().isOk())
-                .andExpect(content().string("Account received for Priya"));
-
+                .andExpect(status().isCreated())
+                .andExpect(jsonPath("$.accountHolder").value("Priya"))
+                .andExpect(jsonPath("$.balance").value(10000.0))
+                .andExpect(jsonPath("$.status").value("ACTIVE"));
     }
 
     @Test
@@ -52,10 +52,11 @@ public class AccountControllerTest {
     void shouldReturn404WhenAccountNotFound() throws Exception {
 
         mockMvc.perform(get("/api/accounts/999"))
-            .andExpect(status().isNotFound())
-            .andExpect(jsonPath("$.status").value(404))
-            .andExpect(jsonPath("$.message")
-                    .value("Account 999 not found"));
+                .andExpect(status().isNotFound())
+                .andExpect(jsonPath("$.status").value(404))
+                .andExpect(jsonPath("$.message")
+                        .value("Bank account with ID 999 was not found"));
+        ;
     }
 
 }
